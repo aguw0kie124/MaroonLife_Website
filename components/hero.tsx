@@ -26,7 +26,7 @@ export function Hero() {
         <Button 
           className="bg-primary text-primary-foreground hover:bg-primary/90"
         >
-          Download App
+          Join Waitlist
         </Button>
       </nav>
 
@@ -43,46 +43,39 @@ export function Hero() {
               The ultimate super-app for Aggies. Discover featured events like the big football game, see what&apos;s happening right now, and never wait in line again.
             </p>
             
-            {/* Download buttons */}
+            {/* Coming Soon badges */}
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
-              <Button 
-                size="lg" 
-                className="h-14 w-full gap-3 bg-primary px-6 text-primary-foreground hover:bg-primary/90 sm:w-auto"
-              >
-                <Apple className="h-6 w-6" />
+              <div className="flex h-14 w-full items-center gap-3 rounded-lg border-2 border-muted bg-muted/50 px-6 sm:w-auto">
+                <Apple className="h-6 w-6 text-muted-foreground" />
                 <div className="flex flex-col items-start">
-                  <span className="text-xs font-normal opacity-80">Download on the</span>
-                  <span className="text-sm font-semibold">App Store</span>
+                  <span className="text-xs font-normal text-muted-foreground">Coming Soon to</span>
+                  <span className="text-sm font-semibold text-foreground">App Store</span>
                 </div>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="h-14 w-full gap-3 border-2 border-primary px-6 text-primary hover:bg-primary hover:text-primary-foreground sm:w-auto"
-              >
-                <Play className="h-6 w-6" />
+              </div>
+              <div className="flex h-14 w-full items-center gap-3 rounded-lg border-2 border-muted bg-muted/50 px-6 sm:w-auto">
+                <Play className="h-6 w-6 text-muted-foreground" />
                 <div className="flex flex-col items-start">
-                  <span className="text-xs font-normal opacity-80">Get it on</span>
-                  <span className="text-sm font-semibold">Google Play</span>
+                  <span className="text-xs font-normal text-muted-foreground">Coming Soon to</span>
+                  <span className="text-sm font-semibold text-foreground">Google Play</span>
                 </div>
-              </Button>
+              </div>
             </div>
 
             {/* Stats */}
             <div className="mt-12 flex items-center justify-center gap-8 lg:justify-start">
               <div className="text-center lg:text-left">
-                <p className="text-3xl font-bold text-primary">10K+</p>
-                <p className="text-sm text-muted-foreground">Active Users</p>
+                <p className="text-3xl font-bold text-primary">104+</p>
+                <p className="text-sm text-muted-foreground">Aggies on Waitlist</p>
               </div>
               <div className="h-12 w-px bg-border" />
               <div className="text-center lg:text-left">
                 <p className="text-3xl font-bold text-primary">500+</p>
-                <p className="text-sm text-muted-foreground">Events Listed</p>
+                <p className="text-sm text-muted-foreground">Events Indexed</p>
               </div>
               <div className="h-12 w-px bg-border" />
               <div className="text-center lg:text-left">
-                <p className="text-3xl font-bold text-primary">4.9</p>
-                <p className="text-sm text-muted-foreground">App Rating</p>
+                <p className="text-3xl font-bold text-primary">Beta</p>
+                <p className="text-sm text-muted-foreground">Coming Soon</p>
               </div>
             </div>
           </div>

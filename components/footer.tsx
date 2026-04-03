@@ -1,57 +1,105 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { Apple, Play, QrCode } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Apple, Play, Mail, Users, Sparkles } from "lucide-react"
+import { useState } from "react"
 
 export function Footer() {
+  const [email, setEmail] = useState("")
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (email) {
+      setIsSubmitted(true)
+    }
+  }
+
   return (
     <footer className="relative overflow-hidden bg-primary text-primary-foreground">
-      {/* CTA Section */}
+      {/* Waitlist Section */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 md:px-12 lg:px-20">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Text content */}
           <div className="text-center lg:text-left">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2">
+              <Users className="h-4 w-4" />
+              <span className="text-sm font-medium">Join 104+ Aggies on the waitlist</span>
+            </div>
             <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-              Upgrade your{" "}
+              Be the first to{" "}
               <span className="underline decoration-primary-foreground/30 decoration-4 underline-offset-4">
-                Maroon Life
+                experience it
               </span>
             </h2>
             <p className="mt-4 text-pretty text-lg text-primary-foreground/80">
-              Join thousands of Aggies who are already living smarter on campus.
+              MaroonLife is launching soon. Get early access and be among the first Aggies to upgrade your campus experience.
             </p>
             
-            {/* Download buttons */}
+            {/* Coming Soon badges */}
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
-              <Button 
-                size="lg" 
-                className="h-14 w-full gap-3 bg-white px-6 text-primary hover:bg-white/90 sm:w-auto"
-              >
-                <Apple className="h-6 w-6" />
+              <div className="flex h-14 w-full items-center gap-3 rounded-lg border-2 border-white/20 bg-white/10 px-6 sm:w-auto">
+                <Apple className="h-6 w-6 text-white/70" />
                 <div className="flex flex-col items-start">
-                  <span className="text-xs font-normal opacity-80">Download on the</span>
-                  <span className="text-sm font-semibold">App Store</span>
+                  <span className="text-xs font-normal text-white/70">Coming Soon to</span>
+                  <span className="text-sm font-semibold text-white">App Store</span>
                 </div>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="h-14 w-full gap-3 border-2 border-white bg-transparent px-6 text-white hover:bg-white hover:text-primary sm:w-auto"
-              >
-                <Play className="h-6 w-6" />
+              </div>
+              <div className="flex h-14 w-full items-center gap-3 rounded-lg border-2 border-white/20 bg-white/10 px-6 sm:w-auto">
+                <Play className="h-6 w-6 text-white/70" />
                 <div className="flex flex-col items-start">
-                  <span className="text-xs font-normal opacity-80">Get it on</span>
-                  <span className="text-sm font-semibold">Google Play</span>
+                  <span className="text-xs font-normal text-white/70">Coming Soon to</span>
+                  <span className="text-sm font-semibold text-white">Google Play</span>
                 </div>
-              </Button>
+              </div>
             </div>
           </div>
 
-          {/* QR Code */}
+          {/* Waitlist Form */}
           <div className="flex justify-center lg:justify-end">
-            <div className="flex flex-col items-center gap-4 rounded-3xl bg-white/10 p-8 backdrop-blur-sm">
-              <div className="flex h-40 w-40 items-center justify-center rounded-2xl bg-white">
-                <QrCode className="h-32 w-32 text-primary" />
-              </div>
-              <p className="text-sm text-primary-foreground/80">Scan to download</p>
+            <div className="w-full max-w-md rounded-3xl bg-white/10 p-8 backdrop-blur-sm">
+              {isSubmitted ? (
+                <div className="flex flex-col items-center gap-4 py-8 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20">
+                    <Sparkles className="h-8 w-8" />
+                  </div>
+                  <h3 className="text-xl font-bold">You&apos;re on the list!</h3>
+                  <p className="text-primary-foreground/80">
+                    We&apos;ll notify you as soon as MaroonLife launches. Gig &apos;em!
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <h3 className="mb-2 text-xl font-bold">Join the Waitlist</h3>
+                  <p className="mb-6 text-sm text-primary-foreground/70">
+                    Enter your email to get early access when we launch.
+                  </p>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                      <Input
+                        type="email"
+                        placeholder="your@tamu.edu"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="h-14 border-0 bg-white pl-12 text-foreground placeholder:text-muted-foreground"
+                        required
+                      />
+                    </div>
+                    <Button 
+                      type="submit"
+                      size="lg" 
+                      className="h-14 w-full bg-foreground text-background hover:bg-foreground/90"
+                    >
+                      Get Early Access
+                    </Button>
+                  </form>
+                  <p className="mt-4 text-center text-xs text-primary-foreground/50">
+                    No spam, just launch updates. Unsubscribe anytime.
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>
