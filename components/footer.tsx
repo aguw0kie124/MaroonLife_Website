@@ -2,17 +2,31 @@
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Apple, Play, Mail, Users, Sparkles } from "lucide-react"
-import { useState } from "react"
+import { Apple, Play, Mail, Users, Sparkles, Loader2 } from "lucide-react"
+import { useState, useEffect } from "react"
+import { joinWaitlist, getWaitlistCount } from "@/app/actions/waitlist"
 
 export function Footer() {
   const [email, setEmail] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [waitlistCount, setWaitlistCount] = useState(104)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    getWaitlistCount().then(setWaitlistCount)
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (email) {
+    if (!email) return
+    
+    setIsLoading(true)
+    const result = await joinWaitlist(email)
+    setIsLoading(false)
+    
+    if (result.success) {
       setIsSubmitted(true)
+      getWaitlistCount().then(setWaitlistCount)
     }
   }
 
@@ -25,7 +39,7 @@ export function Footer() {
           <div className="text-center lg:text-left">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2">
               <Users className="h-4 w-4" />
-              <span className="text-sm font-medium">Join 104+ Aggies on the waitlist</span>
+              <span className="text-sm font-medium">Join {waitlistCount}+ Aggies on the waitlist</span>
             </div>
             <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
               Be the first to{" "}
@@ -91,8 +105,16 @@ export function Footer() {
                       type="submit"
                       size="lg" 
                       className="h-14 w-full bg-foreground text-background hover:bg-foreground/90"
+                      disabled={isLoading}
                     >
-                      Get Early Access
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Joining...
+                        </>
+                      ) : (
+                        "Get Early Access"
+                      )}
                     </Button>
                   </form>
                   <p className="mt-4 text-center text-xs text-primary-foreground/50">

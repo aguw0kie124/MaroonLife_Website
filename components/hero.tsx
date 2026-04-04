@@ -3,17 +3,36 @@
 import { PhoneMockup } from "./phone-mockup"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Apple, Play, Mail, Sparkles } from "lucide-react"
-import { useState } from "react"
+import { Apple, Play, Mail, Sparkles, Loader2 } from "lucide-react"
+import { useState, useEffect } from "react"
+import { joinWaitlist, getWaitlistCount } from "@/app/actions/waitlist"
 
 export function Hero() {
   const [email, setEmail] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState("")
+  const [waitlistCount, setWaitlistCount] = useState(104)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    getWaitlistCount().then(setWaitlistCount)
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (email) {
+    if (!email) return
+    
+    setIsLoading(true)
+    const result = await joinWaitlist(email)
+    setIsLoading(false)
+    
+    if (result.success) {
       setIsSubmitted(true)
+      setMessage(result.message)
+      // Refresh count
+      getWaitlistCount().then(setWaitlistCount)
+    } else {
+      setMessage(result.message)
     }
   }
 
@@ -87,12 +106,20 @@ export function Hero() {
                       type="submit"
                       size="lg" 
                       className="h-14 whitespace-nowrap bg-primary px-8 text-primary-foreground hover:bg-primary/90"
+                      disabled={isLoading}
                     >
-                      Join Waitlist
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Joining...
+                        </>
+                      ) : (
+                        "Join Waitlist"
+                      )}
                     </Button>
                   </div>
                   <p className="text-center text-sm text-muted-foreground lg:text-left">
-                    Join <span className="font-semibold text-primary">104+ Aggies</span> already on the waitlist
+                    Join <span className="font-semibold text-primary">{waitlistCount}+ Aggies</span> already on the waitlist
                   </p>
                 </form>
               )}
