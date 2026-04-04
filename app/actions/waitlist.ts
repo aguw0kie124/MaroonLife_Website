@@ -2,8 +2,11 @@
 
 import { createClient } from "@/lib/supabase/server"
 
-export async function joinWaitlist(email: string) {
+export async function joinWaitlist(email: string, phone?: string) {
   const supabase = await createClient()
+  
+  // Normalize phone number (remove non-digits except +)
+  const normalizedPhone = phone ? phone.replace(/[^\d+]/g, "") : null
   
   // Check if email already exists
   const { data: existing } = await supabase
@@ -13,13 +16,23 @@ export async function joinWaitlist(email: string) {
     .single()
   
   if (existing) {
+    // Update phone if provided and user already exists
+    if (normalizedPhone) {
+      await supabase
+        .from("waitlist")
+        .update({ phone: normalizedPhone })
+        .eq("email", email.toLowerCase())
+    }
     return { success: true, message: "You're already on the waitlist!" }
   }
   
-  // Insert new email
+  // Insert new entry
   const { error } = await supabase
     .from("waitlist")
-    .insert({ email: email.toLowerCase() })
+    .insert({ 
+      email: email.toLowerCase(),
+      phone: normalizedPhone
+    })
   
   if (error) {
     console.error("Waitlist error:", error)

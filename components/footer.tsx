@@ -2,12 +2,13 @@
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Apple, Play, Mail, Users, Sparkles, Loader2 } from "lucide-react"
+import { Apple, Play, Mail, Users, Sparkles, Loader2, Phone } from "lucide-react"
 import { useState, useEffect } from "react"
 import { joinWaitlist, getWaitlistCount } from "@/app/actions/waitlist"
 
 export function Footer() {
   const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [waitlistCount, setWaitlistCount] = useState(104)
@@ -21,7 +22,7 @@ export function Footer() {
     if (!email) return
     
     setIsLoading(true)
-    const result = await joinWaitlist(email)
+    const result = await joinWaitlist(email, phone || undefined)
     setIsLoading(false)
     
     if (result.success) {
@@ -87,7 +88,7 @@ export function Footer() {
                 <>
                   <h3 className="mb-2 text-xl font-bold">Join the Waitlist</h3>
                   <p className="mb-6 text-sm text-primary-foreground/70">
-                    Enter your email to get early access when we launch.
+                    Enter your email and phone to get early access when we launch.
                   </p>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="relative">
@@ -99,6 +100,16 @@ export function Footer() {
                         onChange={(e) => setEmail(e.target.value)}
                         className="h-14 border-0 bg-white pl-12 text-foreground placeholder:text-muted-foreground"
                         required
+                      />
+                    </div>
+                    <div className="relative">
+                      <Phone className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                      <Input
+                        type="tel"
+                        placeholder="(123) 456-7890 (optional)"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="h-14 border-0 bg-white pl-12 text-foreground placeholder:text-muted-foreground"
                       />
                     </div>
                     <Button 

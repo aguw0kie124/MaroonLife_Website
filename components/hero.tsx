@@ -3,12 +3,13 @@
 import { PhoneMockup } from "./phone-mockup"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Apple, Play, Mail, Sparkles, Loader2 } from "lucide-react"
+import { Apple, Play, Mail, Sparkles, Loader2, Phone } from "lucide-react"
 import { useState, useEffect } from "react"
 import { joinWaitlist, getWaitlistCount } from "@/app/actions/waitlist"
 
 export function Hero() {
   const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState("")
@@ -23,7 +24,7 @@ export function Hero() {
     if (!email) return
     
     setIsLoading(true)
-    const result = await joinWaitlist(email)
+    const result = await joinWaitlist(email, phone || undefined)
     setIsLoading(false)
     
     if (result.success) {
@@ -90,8 +91,8 @@ export function Hero() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-3">
-                  <div className="flex flex-col gap-3 sm:flex-row">
-                    <div className="relative flex-1">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative">
                       <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                       <Input
                         type="email"
@@ -100,6 +101,16 @@ export function Hero() {
                         onChange={(e) => setEmail(e.target.value)}
                         className="h-14 border-2 border-muted bg-card pl-12 text-base"
                         required
+                      />
+                    </div>
+                    <div className="relative">
+                      <Phone className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                      <Input
+                        type="tel"
+                        placeholder="(123) 456-7890 (optional)"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="h-14 border-2 border-muted bg-card pl-12 text-base"
                       />
                     </div>
                     <Button 
