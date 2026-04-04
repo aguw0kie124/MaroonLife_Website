@@ -51,8 +51,8 @@ export async function getWaitlistCount() {
   
   if (error) {
     console.error("Count error:", error)
-    return 104 // Fallback to default
+    return 67 // Fallback to default
   }
   
-  return (count || 0) + 104 // Add baseline count
+  return (count || 0) + 67 // Add baseline count
 }

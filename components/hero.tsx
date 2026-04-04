@@ -13,7 +13,7 @@ export function Hero() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState("")
-  const [waitlistCount, setWaitlistCount] = useState(104)
+  const [waitlistCount, setWaitlistCount] = useState(67)
 
   useEffect(() => {
     getWaitlistCount().then(setWaitlistCount)
