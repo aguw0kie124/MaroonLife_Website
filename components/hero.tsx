@@ -1,8 +1,22 @@
+"use client"
+
 import { PhoneMockup } from "./phone-mockup"
 import { Button } from "@/components/ui/button"
-import { Apple, Play } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Apple, Play, Mail, Sparkles } from "lucide-react"
+import { useState } from "react"
 
 export function Hero() {
+  const [email, setEmail] = useState("")
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (email) {
+      setIsSubmitted(true)
+    }
+  }
+
   return (
     <section className="relative min-h-screen overflow-hidden bg-background">
       {/* Subtle background watermark */}
@@ -43,39 +57,62 @@ export function Hero() {
               The ultimate super-app for Aggies. Discover featured events like the big football game, see what&apos;s happening right now, and never wait in line again.
             </p>
             
-            {/* Coming Soon badges */}
-            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
-              <div className="flex h-14 w-full items-center gap-3 rounded-lg border-2 border-muted bg-muted/50 px-6 sm:w-auto">
-                <Apple className="h-6 w-6 text-muted-foreground" />
-                <div className="flex flex-col items-start">
-                  <span className="text-xs font-normal text-muted-foreground">Coming Soon to</span>
-                  <span className="text-sm font-semibold text-foreground">App Store</span>
+            {/* Waitlist Form */}
+            <div className="mt-10 w-full max-w-md lg:mx-0 mx-auto">
+              {isSubmitted ? (
+                <div className="flex items-center gap-3 rounded-2xl bg-primary/10 border border-primary/20 p-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary">
+                    <Sparkles className="h-5 w-5 text-primary-foreground" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">You&apos;re on the list!</p>
+                    <p className="text-sm text-muted-foreground">We&apos;ll notify you when we launch. Gig &apos;em!</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex h-14 w-full items-center gap-3 rounded-lg border-2 border-muted bg-muted/50 px-6 sm:w-auto">
-                <Play className="h-6 w-6 text-muted-foreground" />
-                <div className="flex flex-col items-start">
-                  <span className="text-xs font-normal text-muted-foreground">Coming Soon to</span>
-                  <span className="text-sm font-semibold text-foreground">Google Play</span>
-                </div>
-              </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-3">
+                  <div className="flex flex-col gap-3 sm:flex-row">
+                    <div className="relative flex-1">
+                      <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                      <Input
+                        type="email"
+                        placeholder="your@tamu.edu"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="h-14 border-2 border-muted bg-card pl-12 text-base"
+                        required
+                      />
+                    </div>
+                    <Button 
+                      type="submit"
+                      size="lg" 
+                      className="h-14 whitespace-nowrap bg-primary px-8 text-primary-foreground hover:bg-primary/90"
+                    >
+                      Join Waitlist
+                    </Button>
+                  </div>
+                  <p className="text-center text-sm text-muted-foreground lg:text-left">
+                    Join <span className="font-semibold text-primary">104+ Aggies</span> already on the waitlist
+                  </p>
+                </form>
+              )}
             </div>
 
-            {/* Stats */}
-            <div className="mt-12 flex items-center justify-center gap-8 lg:justify-start">
-              <div className="text-center lg:text-left">
-                <p className="text-3xl font-bold text-primary">104+</p>
-                <p className="text-sm text-muted-foreground">Aggies on Waitlist</p>
+            {/* Coming Soon badges */}
+            <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
+              <div className="flex h-12 items-center gap-3 rounded-lg border border-muted bg-muted/30 px-5">
+                <Apple className="h-5 w-5 text-muted-foreground" />
+                <div className="flex flex-col items-start">
+                  <span className="text-[10px] font-normal leading-tight text-muted-foreground">Coming Soon to</span>
+                  <span className="text-xs font-semibold leading-tight text-foreground">App Store</span>
+                </div>
               </div>
-              <div className="h-12 w-px bg-border" />
-              <div className="text-center lg:text-left">
-                <p className="text-3xl font-bold text-primary">500+</p>
-                <p className="text-sm text-muted-foreground">Events Indexed</p>
-              </div>
-              <div className="h-12 w-px bg-border" />
-              <div className="text-center lg:text-left">
-                <p className="text-3xl font-bold text-primary">Beta</p>
-                <p className="text-sm text-muted-foreground">Coming Soon</p>
+              <div className="flex h-12 items-center gap-3 rounded-lg border border-muted bg-muted/30 px-5">
+                <Play className="h-5 w-5 text-muted-foreground" />
+                <div className="flex flex-col items-start">
+                  <span className="text-[10px] font-normal leading-tight text-muted-foreground">Coming Soon to</span>
+                  <span className="text-xs font-semibold leading-tight text-foreground">Google Play</span>
+                </div>
               </div>
             </div>
           </div>
