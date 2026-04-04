@@ -1,5 +1,7 @@
 landing page for college stations hottest startup
 
+https://v0-maroonlife.vercel.app/
+
 [Continue working on v0 →](https://v0.app/chat/projects/prj_HY5aJpo4033idDNpWJWIhbbuOACA)
 
 ## Getting Started
