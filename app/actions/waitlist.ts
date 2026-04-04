@@ -50,9 +50,7 @@ export async function getWaitlistCount() {
   noStore()
   const supabase = await createClient()
   
-  const { count, error } = await supabase
-    .from("waitlist")
-    .select("*", { count: "exact", head: true })
+  const { data: count, error } = await supabase.rpc('get_waitlist_count')
   
   console.log("WAITLIST DEBUG - DB Count Response:", { count, error })
 
