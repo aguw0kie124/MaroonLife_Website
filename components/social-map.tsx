@@ -6,7 +6,7 @@ export function SocialMap() {
     <section className="relative overflow-hidden bg-card py-20 md:py-32">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(80,0,0,0.03),transparent_50%)]" />
-      
+
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-20">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Phone mockup */}
@@ -22,8 +22,8 @@ export function SocialMap() {
               <div className="absolute -left-2 bottom-1/3 flex h-8 w-8 items-center justify-center rounded-full bg-yellow-500/20">
                 <div className="h-2 w-2 animate-ping rounded-full bg-yellow-500 animation-delay-500" />
               </div>
-              
-              <PhoneMockup 
+
+              <PhoneMockup
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-fOQ35V1PhSEzNzAc1ONpulQU7vCU2D.png"
                 alt="MaroonLife Pulse Map showing live campus activity"
                 className="relative z-10"
@@ -37,14 +37,14 @@ export function SocialMap() {
               <MapPin className="h-4 w-4 text-primary" />
               <span className="text-sm font-medium text-primary">Live Campus Pulse</span>
             </div>
-            
+
             <h2 className="text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
               The Word on{" "}
               <span className="text-primary">the Street.</span>
             </h2>
-            
+
             <p className="mt-6 text-pretty text-lg text-muted-foreground">
-              Check the map to see the true &quot;Pulse&quot; of campus. Real-time &quot;Pings&quot; let you know exactly where the free food, study groups, and pop-ups are dropping right this second.
+              Check the map to see the Pulse of campus. Real-time Pings from Aggies let you know exactly where the free food, activities, and pop-ups are happening right this second.
             </p>
 
             {/* Feature list */}
@@ -60,7 +60,7 @@ export function SocialMap() {
                   </p>
                 </div>
               </div>
-              
+
               <div className="flex items-start gap-4">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
                   <Users className="h-6 w-6 text-primary" />
@@ -72,7 +72,7 @@ export function SocialMap() {
                   </p>
                 </div>
               </div>
-              
+
               <div className="flex items-start gap-4">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-yellow-500/10">
                   <MapPin className="h-6 w-6 text-yellow-600" />

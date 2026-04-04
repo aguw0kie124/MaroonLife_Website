@@ -22,11 +22,11 @@ export function Hero() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email) return
-    
+
     setIsLoading(true)
     const result = await joinWaitlist(email, phone || undefined)
     setIsLoading(false)
-    
+
     if (result.success) {
       setIsSubmitted(true)
       setMessage(result.message)
@@ -40,7 +40,7 @@ export function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-background">
       {/* Subtle background watermark */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='50' font-size='80' text-anchor='middle' dominant-baseline='middle' fill='%23500000' font-family='serif' font-weight='bold'%3EA%3C/text%3E%3C/svg%3E")`,
@@ -48,7 +48,7 @@ export function Hero() {
           backgroundPosition: 'center',
         }}
       />
-      
+
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-4 md:px-12 lg:px-20">
         <div className="flex items-center gap-2">
@@ -57,7 +57,7 @@ export function Hero() {
           </div>
           <span className="text-xl font-bold text-foreground">MaroonLife</span>
         </div>
-        <Button 
+        <Button
           className="bg-primary text-primary-foreground hover:bg-primary/90"
         >
           Join Waitlist
@@ -74,9 +74,9 @@ export function Hero() {
               <span className="text-primary">Live.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-pretty text-lg text-muted-foreground md:text-xl lg:mx-0">
-              The ultimate super-app for Aggies. Discover featured events like the big football game, see what&apos;s happening right now, and never wait in line again.
+              The ultimate super-app for Aggies. Discover events, see what&apos;s happening on campus right now, and navigate student life all in one place.
             </p>
-            
+
             {/* Waitlist Form */}
             <div className="mt-10 w-full max-w-md lg:mx-0 mx-auto">
               {isSubmitted ? (
@@ -113,9 +113,9 @@ export function Hero() {
                         className="h-14 border-2 border-muted bg-card pl-12 text-base"
                       />
                     </div>
-                    <Button 
+                    <Button
                       type="submit"
-                      size="lg" 
+                      size="lg"
                       className="h-14 whitespace-nowrap bg-primary px-8 text-primary-foreground hover:bg-primary/90"
                       disabled={isLoading}
                     >
@@ -161,8 +161,8 @@ export function Hero() {
               {/* Decorative elements */}
               <div className="absolute -left-8 -top-8 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
               <div className="absolute -bottom-8 -right-8 h-48 w-48 rounded-full bg-primary/10 blur-2xl" />
-              
-              <PhoneMockup 
+
+              <PhoneMockup
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/screen-N4HioXACnNbCHiaL5VzktQecEK6Ovq.png"
                 alt="MaroonLife Events Page showing Texas A&M Football game"
                 className="relative z-10"
