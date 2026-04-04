@@ -1,6 +1,7 @@
 "use server"
 
 import { createClient } from "@/lib/supabase/server"
+import { revalidatePath } from "next/cache"
 
 export async function joinWaitlist(email: string, phone?: string) {
   const supabase = await createClient()
@@ -39,16 +40,22 @@ export async function joinWaitlist(email: string, phone?: string) {
     return { success: false, message: "Something went wrong. Please try again." }
   }
   
+  revalidatePath("/")
   return { success: true, message: "You're on the list!" }
 }
 
+import { unstable_noStore as noStore } from "next/cache"
+
 export async function getWaitlistCount() {
+  noStore()
   const supabase = await createClient()
   
   const { count, error } = await supabase
     .from("waitlist")
     .select("*", { count: "exact", head: true })
   
+  console.log("WAITLIST DEBUG - DB Count Response:", { count, error })
+
   if (error) {
     console.error("Count error:", error)
     return 67 // Fallback to default
