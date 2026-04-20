@@ -2,41 +2,9 @@
 
 import { PhoneMockup } from "./phone-mockup"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Apple, Play, Mail, Sparkles, Loader2, Phone } from "lucide-react"
-import { useState, useEffect } from "react"
-import { joinWaitlist, getWaitlistCount } from "@/app/actions/waitlist"
+import { Apple, ArrowRight, Play } from "lucide-react"
 
 export function Hero() {
-  const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [message, setMessage] = useState("")
-  const [waitlistCount, setWaitlistCount] = useState(67)
-
-  useEffect(() => {
-    getWaitlistCount().then(setWaitlistCount)
-  }, [])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
-
-    setIsLoading(true)
-    const result = await joinWaitlist(email, phone || undefined)
-    setIsLoading(false)
-
-    if (result.success) {
-      setIsSubmitted(true)
-      setMessage(result.message)
-      // Refresh count
-      getWaitlistCount().then(setWaitlistCount)
-    } else {
-      setMessage(result.message)
-    }
-  }
-
   return (
     <section className="relative min-h-screen overflow-hidden bg-background">
       {/* Subtle background watermark */}
@@ -60,7 +28,7 @@ export function Hero() {
         <Button
           className="bg-primary text-primary-foreground hover:bg-primary/90"
         >
-          Join Waitlist
+          On the App Store
         </Button>
       </nav>
 
@@ -77,71 +45,31 @@ export function Hero() {
               The ultimate super-app for Aggies. Discover events, see what&apos;s happening on campus right now, and navigate student life all in one place.
             </p>
 
-            {/* Waitlist Form */}
-            <div className="mt-10 w-full max-w-md lg:mx-0 mx-auto">
-              {isSubmitted ? (
-                <div className="flex items-center gap-3 rounded-2xl bg-primary/10 border border-primary/20 p-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary">
-                    <Sparkles className="h-5 w-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">You&apos;re on the list!</p>
-                    <p className="text-sm text-muted-foreground">We&apos;ll notify you when we launch. Gig &apos;em!</p>
-                  </div>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative">
-                      <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                      <Input
-                        type="email"
-                        placeholder="your@tamu.edu"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="h-14 border-2 border-muted bg-card pl-12 text-base"
-                        required
-                      />
-                    </div>
-                    <div className="relative">
-                      <Phone className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                      <Input
-                        type="tel"
-                        placeholder="(123) 456-7890 (optional)"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        className="h-14 border-2 border-muted bg-card pl-12 text-base"
-                      />
-                    </div>
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="h-14 whitespace-nowrap bg-primary px-8 text-primary-foreground hover:bg-primary/90"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Joining...
-                        </>
-                      ) : (
-                        "Join Waitlist"
-                      )}
-                    </Button>
-                  </div>
-                  <p className="text-center text-sm text-muted-foreground lg:text-left">
-                    Join <span className="font-semibold text-primary">{waitlistCount}+ Aggies</span> already on the waitlist
-                  </p>
-                </form>
-              )}
+            <div className="mx-auto mt-10 w-full max-w-xl rounded-3xl border border-primary/15 bg-card/80 p-6 shadow-sm backdrop-blur lg:mx-0">
+              <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+                Now available for iPhone
+              </div>
+              <h2 className="mt-4 text-2xl font-semibold text-foreground">
+                MaroonLife is live on the App Store.
+              </h2>
+              <p className="mt-3 text-base text-muted-foreground">
+                Download the app today to explore events, see what&apos;s happening around campus, and stay connected in real time. Google Play is coming soon.
+              </p>
+              <Button
+                size="lg"
+                className="mt-6 h-14 bg-primary px-8 text-primary-foreground hover:bg-primary/90"
+              >
+                Download on the App Store
+                <ArrowRight className="h-4 w-4" />
+              </Button>
             </div>
 
-            {/* Coming Soon badges */}
+            {/* Store badges */}
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
-              <div className="flex h-12 items-center gap-3 rounded-lg border border-muted bg-muted/30 px-5">
-                <Apple className="h-5 w-5 text-muted-foreground" />
+              <div className="flex h-12 items-center gap-3 rounded-lg border border-primary/20 bg-primary/5 px-5">
+                <Apple className="h-5 w-5 text-primary" />
                 <div className="flex flex-col items-start">
-                  <span className="text-[10px] font-normal leading-tight text-muted-foreground">Coming Soon to</span>
+                  <span className="text-[10px] font-normal leading-tight text-muted-foreground">Available Now on</span>
                   <span className="text-xs font-semibold leading-tight text-foreground">App Store</span>
                 </div>
               </div>
@@ -163,8 +91,8 @@ export function Hero() {
               <div className="absolute -bottom-8 -right-8 h-48 w-48 rounded-full bg-primary/10 blur-2xl" />
 
               <PhoneMockup
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/screen-N4HioXACnNbCHiaL5VzktQecEK6Ovq.png"
-                alt="MaroonLife Events Page showing Texas A&M Football game"
+                src="/app-events-screen.png"
+                alt="MaroonLife Events screen showing a featured Texas A&M football event"
                 className="relative z-10"
               />
             </div>
