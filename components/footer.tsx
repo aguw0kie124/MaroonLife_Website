@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Apple, ArrowRight, Play, Sparkles } from "lucide-react"
 
 export function Footer() {
+  const appStoreUrl = "https://apps.apple.com/us/app/maroonlife/id6761646764"
+
   return (
     <footer className="relative overflow-hidden bg-primary text-primary-foreground">
       {/* Launch Section */}
@@ -56,11 +58,14 @@ export function Footer() {
                   Discover events, monitor campus activity, and stay plugged into Aggie life from your phone.
                 </p>
                 <Button
+                  asChild
                   size="lg"
                   className="mt-6 h-14 w-full bg-foreground text-background hover:bg-foreground/90"
                 >
-                  Download on the App Store
-                  <ArrowRight className="h-4 w-4" />
+                  <a href={appStoreUrl} target="_blank" rel="noopener noreferrer">
+                    Download on the App Store
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
                 </Button>
                 <p className="mt-4 text-center text-sm text-primary-foreground/60">
                   Android release coming soon on Google Play.

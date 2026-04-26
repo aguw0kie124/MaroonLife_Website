@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Apple, ArrowRight, Play } from "lucide-react"
 
 export function Hero() {
+  const appStoreUrl = "https://apps.apple.com/us/app/maroonlife/id6761646764"
+
   return (
     <section className="relative min-h-screen overflow-hidden bg-background">
       {/* Subtle background watermark */}
@@ -26,9 +28,12 @@ export function Hero() {
           <span className="text-xl font-bold text-foreground">MaroonLife</span>
         </div>
         <Button
+          asChild
           className="bg-primary text-primary-foreground hover:bg-primary/90"
         >
-          On the App Store
+          <a href={appStoreUrl} target="_blank" rel="noopener noreferrer">
+            On the App Store
+          </a>
         </Button>
       </nav>
 
@@ -56,11 +61,14 @@ export function Hero() {
                 Download the app today to explore events, see what&apos;s happening around campus, and stay connected in real time. Google Play is coming soon.
               </p>
               <Button
+                asChild
                 size="lg"
                 className="mt-6 h-14 bg-primary px-8 text-primary-foreground hover:bg-primary/90"
               >
-                Download on the App Store
-                <ArrowRight className="h-4 w-4" />
+                <a href={appStoreUrl} target="_blank" rel="noopener noreferrer">
+                  Download on the App Store
+                  <ArrowRight className="h-4 w-4" />
+                </a>
               </Button>
             </div>
 
